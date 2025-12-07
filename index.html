@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>GKToday Datewise Articles</title>
+  <title>Current Affairs – Datewise Search</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -61,7 +61,7 @@
 
     form {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       grid-gap: 10px;
       margin-top: 16px;
       margin-bottom: 14px;
@@ -74,14 +74,13 @@
     }
 
     input[type="date"] {
-      padding: 10px;
+      padding: 12px;
       border-radius: 12px;
       border: none;
       font-size: 0.9rem;
     }
 
     button {
-      grid-column: 1 / -1;
       margin-top: 6px;
       padding: 14px;
       border-radius: 999px;
@@ -160,31 +159,21 @@
       margin-top: 14px;
       font-weight: 700;
     }
-
-    @media (max-width: 480px) {
-      form {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 
 <body>
   <div class="app-container">
     <div class="app-header">
-      <h1>GKToday – Datewise Links</h1>
-      <p>Choose a date range to search current affairs on the internet.</p>
+      <h1>Current Affairs – Date Search</h1>
+      <p>Select a date to search current affairs on the internet.</p>
       <div class="note">Only data from 01.12.2020 available, please use wisely 😊</div>
     </div>
 
     <form id="dateForm">
       <div>
-        <label>From Date</label>
-        <input type="date" id="fromDate" />
-      </div>
-      <div>
-        <label>To Date</label>
-        <input type="date" id="toDate" />
+        <label>Select Date</label>
+        <input type="date" id="selectDate" />
       </div>
       <button type="submit">Search the Internet</button>
     </form>
@@ -198,8 +187,7 @@
 
   <script>
     const form = document.getElementById("dateForm");
-    const fromInput = document.getElementById("fromDate");
-    const toInput = document.getElementById("toDate");
+    const dateInput = document.getElementById("selectDate");
     const errorMsg = document.getElementById("errorMsg");
     const statusMsg = document.getElementById("statusMsg");
     const resultsDiv = document.getElementById("results");
@@ -210,48 +198,32 @@
       statusMsg.textContent = "";
       resultsDiv.innerHTML = "";
 
-      const from = fromInput.value;
-      const to = toInput.value;
+      const selectedDate = dateInput.value;
 
-      if (!from || !to) {
-        errorMsg.textContent = "Please select BOTH from and to dates.";
+      if (!selectedDate) {
+        errorMsg.textContent = "Please select a date.";
         return;
       }
 
-      if (to < from) {
-        errorMsg.textContent = "TO date cannot be earlier than FROM date.";
-        return;
-      }
+      const searchQuery = encodeURIComponent(
+        `current affairs ${selectedDate}`
+      );
 
-      let current = new Date(from);
-      let count = 0;
+      const googleUrl = `https://www.google.com/search?q=${searchQuery}`;
 
-      while (current <= new Date(to)) {
-        const displayDate = current.toISOString().slice(0, 10);
+      const card = document.createElement("div");
+      card.className = "day-card";
+      card.innerHTML = `
+        <div class="day-date">${selectedDate}</div>
+        <div class="day-sub">Internet Search:</div>
+        <div class="links">
+          <a href="${googleUrl}" target="_blank">Search Current Affairs</a>
+        </div>
+      `;
 
-        const searchQuery = encodeURIComponent(
-          `current affairs ${displayDate}`
-        );
-
-        const googleUrl = `https://www.google.com/search?q=${searchQuery}`;
-
-        const card = document.createElement("div");
-        card.className = "day-card";
-        card.innerHTML = `
-          <div class="day-date">${displayDate}</div>
-          <div class="day-sub">Internet Search:</div>
-          <div class="links">
-            <a href="${googleUrl}" target="_blank">Search Current Affairs</a>
-          </div>
-        `;
-        resultsDiv.appendChild(card);
-
-        count++;
-        current.setDate(current.getDate() + 1);
-      }
-
-      statusMsg.innerHTML = `${count} day(s) searched on Google.`;
+      resultsDiv.appendChild(card);
+      statusMsg.innerHTML = `1 search ready for ${selectedDate}`;
     });
   </script>
 </body>
-</html>
+  </html>
