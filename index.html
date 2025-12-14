@@ -1,232 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="PQ4uNKNE20kEm3CsAxyXsZFcZ5Xl3UgnbMmHiNSD8m0" />
-  <title>EventThreads Current Affairs – Datewise Search</title>
+<meta charset="UTF-8" />
+<meta name="google-site-verification" content="PQ4uNKNE20kEm3CsAxyXsZFcZ5Xl3UgnbMmHiNSD8m0" />
 
-<meta name="description" content="EventThreads Current Affairs lets you search daily current affairs datewise. Simple, fast and perfect for competitive exam preparation.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EventThreads Current Affairs – Datewise Search</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta name="description" content="EventThreads Current Affairs lets you search daily current affairs datewise. Embedded Google search, fast and exam-friendly.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: url("bg.jpg") no-repeat center center fixed;
-      background-size: cover;
-      color: #111827;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 16px;
-    }
+<!-- GOOGLE CSE SCRIPT (RESULTS ONLY MODE) -->
+<script async src="https://cse.google.com/cse.js?cx=816445f02b8b34e22"></script>
 
-    .app-container {
-      background: rgba(20, 20, 20, 0.55);
-      width: 100%;
-      max-width: 650px;
-      border-radius: 18px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-      padding: 20px 18px 22px;
-      margin-top: 30px;
-      color: #ffffff;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    .app-header {
-      text-align: center;
-      margin-bottom: 12px;
-    }
+body{
+  font-family:system-ui;
+  background:url("bg.jpg") no-repeat center center fixed;
+  background-size:cover;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:16px;
+  color:#fff;
+}
 
-    .app-header h1 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-      color: #ffffff;
-    }
+.app-container{
+  background:rgba(20,20,20,.6);
+  max-width:650px;
+  width:100%;
+  border-radius:18px;
+  padding:20px;
+  margin-top:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,.6);
+}
 
-    .app-header p {
-      font-size: 0.82rem;
-      color: #e5e7eb;
-    }
+.app-header{text-align:center}
+.app-header h1{font-size:1.3rem;font-weight:800}
+.app-header p{font-size:.82rem;color:#e5e7eb}
+.note{
+  font-size:.78rem;
+  color:#f87171;
+  font-weight:700;
+  margin-top:6px
+}
 
-    .note {
-      font-size: 0.78rem;
-      text-align: center;
-      color: #f87171;
-      margin-top: 6px;
-      font-weight: 700;
-    }
+form{margin-top:16px}
+label{font-size:.8rem;font-weight:600}
 
-    form {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-gap: 10px;
-      margin-top: 16px;
-      margin-bottom: 14px;
-    }
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin-top:6px;
+}
 
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
+button{
+  margin-top:12px;
+  width:100%;
+  padding:14px;
+  border-radius:999px;
+  border:none;
+  font-weight:800;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:#fff;
+  cursor:pointer;
+}
 
-    input[type="date"] {
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      font-size: 0.9rem;
-    }
+.status,.error{
+  text-align:center;
+  font-size:.78rem;
+  margin-top:8px
+}
+.status{color:#a5b4fc;font-weight:700}
+.error{color:#f87171}
 
-    button {
-      margin-top: 6px;
-      padding: 14px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: white;
-    }
+/* GOOGLE RESULTS AREA */
+.search-results{
+  margin-top:16px;
+  background:rgba(0,0,0,.45);
+  border-radius:14px;
+  padding:10px;
+}
 
-    .error {
-      font-size: 0.78rem;
-      color: #f87171;
-      margin-bottom: 6px;
-      text-align: center;
-    }
+/* DARK MODE GOOGLE STYLING */
+.gsc-control-cse{
+  background:transparent !important;
+  border:none !important;
+}
+.gsc-webResult.gsc-result{
+  background:rgba(0,0,0,.4) !important;
+  border-radius:10px;
+}
+.gsc-webResult.gsc-result *{
+  color:#e5e7eb !important;
+}
 
-    .status {
-      font-size: 0.78rem;
-      color: #a5b4fc;
-      margin-bottom: 6px;
-      text-align: center;
-      font-weight: 700;
-    }
+/* GAME */
+.game{
+  margin-top:22px;
+  text-align:center;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,70px);
+  gap:6px;
+  justify-content:center;
+  margin:10px auto;
+}
+.cell{
+  width:70px;height:70px;
+  background:rgba(255,255,255,.15);
+  font-size:1.6rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-radius:10px;
+}
+.reset{
+  margin-top:10px;
+  padding:8px 16px;
+  border-radius:999px;
+  border:none;
+  font-weight:700;
+  background:#22c55e;
+  color:#000;
+}
 
-    .results {
-      margin-top: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 60vh;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .day-card {
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 10px 12px;
-      background: rgba(0, 0, 0, 0.45);
-    }
-
-    .day-date {
-      font-size: 0.82rem;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .day-sub {
-      font-size: 0.75rem;
-      color: #e5e7eb;
-      margin-bottom: 6px;
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .links a {
-      font-size: 0.78rem;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid #60a5fa;
-      color: #60a5fa;
-      background: rgba(37, 99, 235, 0.2);
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 0.72rem;
-      color: #e5e7eb;
-      margin-top: 14px;
-      font-weight: 700;
-    }
-  </style>
+.footer{
+  margin-top:14px;
+  text-align:center;
+  font-size:.72rem;
+  color:#e5e7eb;
+  font-weight:700;
+}
+</style>
 </head>
 
 <body>
-  <div class="app-container">
-    <div class="app-header">
-      <h1>Current Affairs – Date Search</h1>
-      <p>Select a date to search current affairs on the internet.</p>
-      <div class="note">Only data from 01.12.2020 available, please use wisely 😊</div>
+<div class="app-container">
+
+  <div class="app-header">
+    <h1>Current Affairs – Date Search</h1>
+    <p>Select a date to search current affairs on the internet.</p>
+    <div class="note">
+      Oldest to newest available, use and know everything LITERALLY EVERYTHING 🪯
     </div>
-
-    <form id="dateForm">
-      <div>
-        <label>Select Date</label>
-        <input type="date" id="selectDate" />
-      </div>
-      <button type="submit">Search the Internet</button>
-    </form>
-
-    <div class="error" id="errorMsg"></div>
-    <div class="status" id="statusMsg"></div>
-    <div class="results" id="results"></div>
-
-    <div class="footer">© Koppula Rishi</div>
   </div>
 
-  <script>
-    const form = document.getElementById("dateForm");
-    const dateInput = document.getElementById("selectDate");
-    const errorMsg = document.getElementById("errorMsg");
-    const statusMsg = document.getElementById("statusMsg");
-    const resultsDiv = document.getElementById("results");
+  <form id="dateForm">
+    <label>Select Date</label>
+    <input type="date" id="selectDate">
+    <button type="submit">Search the Internet</button>
+  </form>
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      errorMsg.textContent = "";
-      statusMsg.textContent = "";
-      resultsDiv.innerHTML = "";
+  <div class="error" id="errorMsg"></div>
+  <div class="status" id="statusMsg"></div>
 
-      const selectedDate = dateInput.value;
+  <!-- EMBEDDED GOOGLE RESULTS (RESULTS ONLY) -->
+  <div class="search-results">
+    <div class="gcse-searchresults-only"></div>
+  </div>
 
-      if (!selectedDate) {
-        errorMsg.textContent = "Please select a date.";
-        return;
-      }
+  <!-- GAME -->
+  <div class="game">
+    <div style="font-weight:800">Mini Game: Tic-Tac-Toe</div>
+    <div class="grid" id="grid"></div>
+    <div class="status" id="gameStatus"></div>
+    <button class="reset" onclick="resetGame()">Reset Game</button>
+  </div>
 
-      const searchQuery = encodeURIComponent(
-        `current affairs ${selectedDate}`
-      );
+  <div class="footer">© Koppula Rishi</div>
+</div>
 
-      const googleUrl = `https://www.google.com/search?q=${searchQuery}`;
+<script>
+/* AUTO GOOGLE SEARCH BY DATE */
+document.getElementById("dateForm").onsubmit = e => {
+  e.preventDefault();
 
-      const card = document.createElement("div");
-      card.className = "day-card";
-      card.innerHTML = `
-        <div class="day-date">${selectedDate}</div>
-        <div class="day-sub">Internet Search:</div>
-        <div class="links">
-          <a href="${googleUrl}" target="_blank">Search Current Affairs</a>
-        </div>
-      `;
+  const d = document.getElementById("selectDate").value;
+  const err = document.getElementById("errorMsg");
+  const stat = document.getElementById("statusMsg");
 
-      resultsDiv.appendChild(card);
-      statusMsg.innerHTML = `1 search ready for ${selectedDate}`;
-    });
-  </script>
+  err.textContent = "";
+  stat.textContent = "";
+
+  if (!d) {
+    err.textContent = "Please select a date.";
+    return;
+  }
+
+  const readable = new Date(d).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+  const query = "current affairs " + readable;
+  stat.textContent = "Showing results for " + readable;
+
+  const interval = setInterval(() => {
+    const input = document.querySelector("input.gsc-input");
+    const btn = document.querySelector(".gsc-search-button");
+
+    if (input && btn) {
+      input.value = query;
+      btn.click();
+      clearInterval(interval);
+    }
+  }, 300);
+};
+
+/* TIC TAC TOE GAME */
+const grid = document.getElementById("grid");
+const status = document.getElementById("gameStatus");
+let board, over;
+
+function init(){
+  grid.innerHTML="";
+  board = Array(9).fill("");
+  over=false;
+  status.textContent="Your move ❌";
+  board.forEach((_,i)=>{
+    const c=document.createElement("div");
+    c.className="cell";
+    c.onclick=()=>player(i,c);
+    grid.appendChild(c);
+  });
+}
+
+function player(i,c){
+  if(board[i]||over)return;
+  board[i]="X";
+  c.textContent="X";
+  if(check("X")){status.textContent="YOU WIN 😎";over=true;return;}
+  computer();
+}
+
+function computer(){
+  const empty=board.map((v,i)=>v==""?i:null).filter(v=>v!==null);
+  if(!empty.length){status.textContent="DRAW 😐";over=true;return;}
+  const i=empty[Math.floor(Math.random()*empty.length)];
+  board[i]="O";
+  grid.children[i].textContent="O";
+  if(check("O")){status.textContent="COMPUTER WINS 🤖";over=true;}
+}
+
+function check(p){
+  const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  return w.some(([a,b,c])=>board[a]==p&&board[b]==p&&board[c]==p);
+}
+
+function resetGame(){init()}
+init();
+</script>
+
 </body>
   </html>
