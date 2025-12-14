@@ -145,7 +145,7 @@ button{
 
 <!-- GAME -->
 <div class="game">
-<div style="font-weight:800">Mini Game: Tic-Tac-Toe (You ❌ vs Google 🤖)</div>
+<div style="font-weight:800">Mini Game: Tic-Tac-Toe (HARD MODE 🤖)</div>
 <div class="grid" id="grid"></div>
 <div class="status" id="gameStatus"></div>
 <button class="reset" onclick="resetGame()">Reset Game</button>
@@ -155,7 +155,7 @@ button{
 </div>
 
 <script>
-/* GOOGLE SEARCH LOGIC */
+/* GOOGLE SEARCH */
 document.getElementById("dateForm").onsubmit=e=>{
 e.preventDefault();
 
@@ -165,19 +165,11 @@ const s=document.getElementById("statusMsg");
 const eM=document.getElementById("errorMsg");
 
 r.innerHTML=""; s.textContent=""; eM.textContent="";
-
 if(!d){eM.textContent="Please select a date.";return;}
 
 const dt=new Date(d);
-const readable=dt.toLocaleDateString("en-GB",{
-  day:"2-digit",
-  month:"long",
-  year:"numeric"
-});
-
-const googleURL=`https://www.google.com/search?q=${encodeURIComponent(
-  "current affairs " + readable
-)}`;
+const readable=dt.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+const googleURL=`https://www.google.com/search?q=${encodeURIComponent("current affairs "+readable)}`;
 
 r.innerHTML=`
 <div class="day-card">
@@ -187,14 +179,15 @@ r.innerHTML=`
     <a href="${googleURL}" target="_blank">Search Current Affairs</a>
   </div>
 </div>`;
-
 s.textContent=`1 search ready for ${d}`;
 };
 
-/* TIC-TAC-TOE AUTO COMPUTER */
+/* TIC-TAC-TOE HARD AI (MINIMAX) */
 const grid=document.getElementById("grid");
 const status=document.getElementById("gameStatus");
 let board,over;
+
+const winLines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
 function init(){
 grid.innerHTML="";
@@ -204,31 +197,62 @@ status.textContent="Your move ❌";
 board.forEach((_,i)=>{
 const c=document.createElement("div");
 c.className="cell";
-c.onclick=()=>player(i,c);
+c.onclick=()=>playerMove(i,c);
 grid.appendChild(c);
 });
 }
 
-function player(i,c){
+function playerMove(i,c){
 if(board[i]||over)return;
 board[i]="X";
 c.textContent="X";
-if(check("X")){status.textContent="YOU WIN 😎";over=true;return;}
-computer();
+if(checkWin(board,"X")){status.textContent="YOU WON 😱 (HOW?)";over=true;return;}
+if(board.includes(""))computerMove();
+else{status.textContent="DRAW 😐";over=true;}
 }
 
-function computer(){
-const empty=board.map((v,i)=>v==""?i:null).filter(v=>v!==null);
-if(!empty.length){status.textContent="DRAW 😐";over=true;return;}
-const i=empty[Math.floor(Math.random()*empty.length)];
+function computerMove(){
+let bestScore=-Infinity,move;
+for(let i=0;i<9;i++){
+if(board[i]===""){
 board[i]="O";
-grid.children[i].textContent="O";
-if(check("O")){status.textContent="COMPUTER WINS 🤖";over=true;}
+let score=minimax(board,0,false);
+board[i]="";
+if(score>bestScore){bestScore=score;move=i;}
+}}
+board[move]="O";
+grid.children[move].textContent="O";
+if(checkWin(board,"O")){status.textContent="COMPUTER WINS 🤖🔥";over=true;}
 }
 
-function check(p){
-const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-return w.some(([a,b,c])=>board[a]==p&&board[b]==p&&board[c]==p);
+function minimax(b,depth,isMax){
+if(checkWin(b,"O"))return 10-depth;
+if(checkWin(b,"X"))return depth-10;
+if(!b.includes(""))return 0;
+
+if(isMax){
+let best=-Infinity;
+for(let i=0;i<9;i++){
+if(b[i]===""){
+b[i]="O";
+best=Math.max(best,minimax(b,depth+1,false));
+b[i]="";
+}}
+return best;
+}else{
+let best=Infinity;
+for(let i=0;i<9;i++){
+if(b[i]===""){
+b[i]="X";
+best=Math.min(best,minimax(b,depth+1,true));
+b[i]="";
+}}
+return best;
+}
+}
+
+function checkWin(b,p){
+return winLines.some(([a,b2,c])=>b[a]==p&&b[b2]==p&&b[c]==p);
 }
 
 function resetGame(){init()}
@@ -236,4 +260,4 @@ init();
 </script>
 
 </body>
-  </html>
+</html>
