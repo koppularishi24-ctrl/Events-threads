@@ -2,174 +2,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>What Happened On This Day</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="PQ4uNKNE20kEm3CsAxyXsZFcZ5Xl3UgnbMmHiNSD8m0" />
+<title>Event Threads GK</title>
+
+<meta name="description" content="EventThreads Current Affairs lets you search daily current affairs datewise. Simple, fast and perfect for competitive exam preparation.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-    margin: 0;
-    padding: 0;
-  }
+*{box-sizing:border-box;margin:0;padding:0}
 
-  header {
-    padding: 20px;
-    text-align: center;
-    background: #020617;
-    border-bottom: 1px solid #1e293b;
-  }
+body{
+  font-family:system-ui;
+  background:url("bg.jpg") no-repeat center center fixed;
+  background-size:cover;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:16px;
+  color:#fff;
+}
 
-  header h1 {
-    margin: 0;
-    font-size: 2rem;
-    color: #38bdf8;
-  }
+.app-container{
+  background:rgba(20,20,20,.55);
+  max-width:650px;
+  width:100%;
+  border-radius:18px;
+  padding:20px;
+  margin-top:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,.6);
+}
 
-  .controls {
-    margin-top: 15px;
-  }
+.app-header{text-align:center}
+.app-header h1{font-size:1.3rem;font-weight:800}
+.app-header p{font-size:.82rem;color:#e5e7eb}
+.note{font-size:.78rem;color:#f87171;font-weight:700;margin-top:6px}
 
-  input[type="date"] {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    font-size: 1rem;
-  }
+form{margin-top:16px}
+label{font-size:.8rem;font-weight:600}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin-top:6px;
+}
+button{
+  margin-top:12px;
+  width:100%;
+  padding:14px;
+  border-radius:999px;
+  border:none;
+  font-weight:800;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:#fff;
+  cursor:pointer;
+}
 
-  button {
-    padding: 10px 16px;
-    margin-left: 8px;
-    border: none;
-    border-radius: 8px;
-    background: #38bdf8;
-    color: #020617;
-    font-weight: 600;
-    cursor: pointer;
-  }
+.status,.error{
+  text-align:center;
+  font-size:.78rem;
+  margin-top:8px
+}
+.status{color:#a5b4fc;font-weight:700}
+.error{color:#f87171}
 
-  button:hover {
-    background: #0ea5e9;
-  }
+.results{margin-top:12px;display:flex;flex-direction:column;gap:12px}
 
-  main {
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-  }
+.day-card,.highlights{
+  background:rgba(0,0,0,.45);
+  border-radius:14px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,.2);
+}
 
-  .section {
-    margin-bottom: 30px;
-  }
+.links a{
+  display:inline-block;
+  margin-top:6px;
+  margin-right:8px;
+  font-size:.78rem;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid #60a5fa;
+  color:#60a5fa;
+  text-decoration:none;
+}
 
-  .section h2 {
-    border-left: 4px solid #38bdf8;
-    padding-left: 10px;
-    color: #7dd3fc;
-  }
+.highlights h3{
+  font-size:.9rem;
+  margin-bottom:6px;
+}
 
-  .event {
-    background: #020617;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10px 0;
-    border: 1px solid #1e293b;
-  }
+.highlights ul{
+  padding-left:16px;
+  font-size:.8rem;
+}
 
-  .year {
-    font-weight: bold;
-    color: #38bdf8;
-    margin-right: 6px;
-  }
+.highlights li{
+  margin-bottom:6px;
+}
 
-  .loading {
-    text-align: center;
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
+.highlights a{
+  color:#93c5fd;
+  text-decoration:none;
+}
 
-  footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 0.9rem;
-    color: #94a3b8;
-  }
+.footer{
+  margin-top:16px;
+  text-align:center;
+  font-size:.72rem;
+  color:#e5e7eb;
+  font-weight:700;
+}
 </style>
 </head>
 
 <body>
+<div class="app-container">
 
-<header>
-  <h1>📅 WHAT HAPPENED ON THIS DAY</h1>
-  <div class="controls">
-    <input type="date" id="datePicker">
-    <button onclick="fetchEvents()">SEARCH</button>
-  </div>
-</header>
+<!-- HEADER -->
+<div class="app-header">
+  <h1>Current Affairs – Date Search</h1>
+  <p>Select a date to explore what happened on that day.</p>
+  <div class="note">Oldest to newest available — know EVERYTHING 🪯</div>
+</div>
 
-<main id="content">
-  <div class="loading">SELECT A DATE AND HIT SEARCH 👆</div>
-</main>
+<!-- SEARCH -->
+<form id="dateForm">
+  <label>Select Date</label>
+  <input type="date" id="selectDate">
+  <button type="submit">Search the Internet</button>
+</form>
 
-<footer>
-  Data powered by Wikipedia • Built by LOOCHANA 😏
-</footer>
+<div class="error" id="errorMsg"></div>
+<div class="status" id="statusMsg"></div>
+
+<div class="results" id="results"></div>
+<div class="results" id="highlights"></div>
+
+<div class="footer">© Koppula Rishi</div>
+</div>
 
 <script>
-  async function fetchEvents() {
-    const dateInput = document.getElementById("datePicker").value;
-    const content = document.getElementById("content");
+document.getElementById("dateForm").onsubmit=e=>{
+e.preventDefault();
 
-    if (!dateInput) {
-      alert("SELECT A DATE FIRST, DUMBASS 😤");
-      return;
-    }
+const d=document.getElementById("selectDate").value;
+const results=document.getElementById("results");
+const highlights=document.getElementById("highlights");
+const status=document.getElementById("statusMsg");
+const error=document.getElementById("errorMsg");
 
-    const date = new Date(dateInput);
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+results.innerHTML="";
+highlights.innerHTML="";
+status.textContent="";
+error.textContent="";
 
-    content.innerHTML = '<div class="loading">FETCHING HISTORY FROM THE INTERNET… 🌍</div>';
+if(!d){
+  error.textContent="Please select a date.";
+  return;
+}
 
-    try {
-      const res = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${month}/${day}`
-      );
-      const data = await res.json();
+const dt=new Date(d);
+const readable=dt.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+const link=q=>`https://www.google.com/search?q=${encodeURIComponent(q+" "+readable)}`;
 
-      content.innerHTML = "";
+results.innerHTML=`
+<div class="day-card">
+  <b>${readable}</b>
+  <div class="links">
+    <a href="${link("what happened on")}" target="_blank">Full Overview</a>
+  </div>
+</div>
+`;
 
-      renderSection("📜 EVENTS", data.events, content);
-      renderSection("🎂 BIRTHS", data.births, content);
-      renderSection("🕊️ DEATHS", data.deaths, content);
+highlights.innerHTML=`
+<div class="highlights">
+  <h3>Most Important Activities</h3>
+  <ul>
+    <li><a href="${link("major political events")}" target="_blank">Political & Government Events</a></li>
+    <li><a href="${link("supreme court major decisions")}" target="_blank">Legal / Supreme Court Decisions</a></li>
+    <li><a href="${link("international relations diplomacy")}" target="_blank">International & Diplomatic Events</a></li>
+    <li><a href="${link("economy finance news")}" target="_blank">Economy & Financial Updates</a></li>
+    <li><a href="${link("science technology launches")}" target="_blank">Science & Technology</a></li>
+    <li><a href="${link("important national events india")}" target="_blank">National Importance (India)</a></li>
+  </ul>
+</div>
+`;
 
-    } catch (err) {
-      content.innerHTML = "<div class='loading'>FAILED TO FETCH DATA 💀</div>";
-      console.error(err);
-    }
-  }
-
-  function renderSection(title, items, container) {
-    if (!items || items.length === 0) return;
-
-    const section = document.createElement("div");
-    section.className = "section";
-
-    const h2 = document.createElement("h2");
-    h2.textContent = title;
-    section.appendChild(h2);
-
-    items.slice(0, 10).forEach(item => {
-      const div = document.createElement("div");
-      div.className = "event";
-      div.innerHTML = `<span class="year">${item.year}</span>${item.text}`;
-      section.appendChild(div);
-    });
-
-    container.appendChild(section);
-  }
+status.textContent=`Highlights ready for ${readable}`;
+};
 </script>
-
 </body>
-</html>
+  </html>
