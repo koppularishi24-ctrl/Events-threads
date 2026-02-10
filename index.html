@@ -4,9 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="google-site-verification" content="PQ4uNKNE20kEm3CsAxyXsZFcZ5Xl3UgnbMmHiNSD8m0" />
 <title>Event Threads GK</title>
-<meta property="og:title" content="Event Threads GK">
-<meta property="og:description" content="Datewise current affairs by Rishi for competitive exam prep.">
-<meta name="description" content="Event Threads GK by Rishi — fast, datewise current affairs for competitive exams. Simple, smart, and reliable.">
+
+<meta name="description" content="EventThreads Current Affairs lets you search daily current affairs datewise. Simple, fast and perfect for competitive exam preparation.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
@@ -40,13 +39,14 @@ body{
 
 form{margin-top:16px}
 label{font-size:.8rem;font-weight:600}
-input{
+input,select{
   width:100%;
   padding:12px;
   border-radius:12px;
   border:none;
   margin-top:6px;
 }
+
 button{
   margin-top:12px;
   width:100%;
@@ -88,31 +88,81 @@ button{
   text-decoration:none;
 }
 
-.highlights h3{
-  font-size:.9rem;
-  margin-bottom:6px;
-}
+.highlights h3{font-size:.9rem;margin-bottom:6px}
+.highlights ul{padding-left:16px;font-size:.8rem}
+.highlights li{margin-bottom:6px}
+.highlights a{color:#93c5fd;text-decoration:none}
 
-.highlights ul{
-  padding-left:16px;
+/* INFO SECTION */
+.info-section{
+  margin-top:24px;
+  background:rgba(0,0,0,.35);
+  padding:18px;
+  border-radius:16px;
   font-size:.8rem;
+  line-height:1.6;
+  border:1px solid rgba(255,255,255,.15);
 }
 
-.highlights li{
-  margin-bottom:6px;
+.info-section h2{
+  font-size:.95rem;
+  margin:14px 0 6px;
+  color:#bfdbfe;
 }
 
-.highlights a{
-  color:#93c5fd;
-  text-decoration:none;
-}
+.info-section p,
+.info-section li{color:#e5e7eb}
 
+.info-section ul,
+.info-section ol{padding-left:18px}
+
+/* FOOTER */
 .footer{
-  margin-top:16px;
+  margin-top:18px;
   text-align:center;
   font-size:.72rem;
   color:#e5e7eb;
   font-weight:700;
+}
+
+.footer a{
+  color:#93c5fd;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+/* MODAL */
+.info-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.info-box{
+  background:rgba(20,20,20,.95);
+  padding:20px;
+  border-radius:16px;
+  max-width:420px;
+  width:90%;
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.info-box h3{margin-bottom:10px;font-size:.95rem}
+.info-box p{font-size:.8rem;line-height:1.6;color:#e5e7eb}
+.info-box a{color:#93c5fd;text-decoration:none}
+
+.info-box button{
+  margin-top:14px;
+  padding:10px 18px;
+  border:none;
+  border-radius:999px;
+  background:#2563eb;
+  color:#fff;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -120,18 +170,24 @@ button{
 <body>
 <div class="app-container">
 
-<!-- HEADER -->
 <div class="app-header">
   <h1>Current Affairs – Date Search</h1>
   <p>Select a date to explore what happened on that day.</p>
   <div class="note">Oldest to newest available — know EVERYTHING 🪯</div>
 </div>
 
-<!-- SEARCH -->
 <form id="dateForm">
   <label>Select Date</label>
   <input type="date" id="selectDate">
   <button type="submit">Search the Internet</button>
+</form>
+
+<form id="qGameForm">
+  <label>Q-Game (GK Practice)</label>
+  <select id="yearSelect">
+    <option value="">Select a Year</option>
+  </select>
+  <button type="submit">Start Q-Game 🎯</button>
 </form>
 
 <div class="error" id="errorMsg"></div>
@@ -140,58 +196,110 @@ button{
 <div class="results" id="results"></div>
 <div class="results" id="highlights"></div>
 
-<div class="footer">© Koppula Rishi</div>
+<div class="info-section">
+  <h2>Introduction</h2>
+  <p>
+    This free web application allows students and exam aspirants to explore
+    date-wise current affairs quickly. It provides direct access to important
+    national and international events using reliable public sources.
+  </p>
+
+  <h2>How To Use</h2>
+  <ol>
+    <li>Select a date using the date picker.</li>
+    <li>Click on the Search the Internet button.</li>
+    <li>Review the generated highlights.</li>
+    <li>Click any category to explore detailed results.</li>
+  </ol>
+
+  <h2>Main Features</h2>
+  <ul>
+    <li>Date-wise current affairs search</li>
+    <li>Important categories like politics, economy, and technology</li>
+    <li>No login or signup required</li>
+    <li>Mobile-friendly and lightweight</li>
+  </ul>
+
+  <h2>Remarks</h2>
+  <ul>
+    <li>This tool does not collect or store any personal data.</li>
+    <li>All links redirect to public Google search results.</li>
+    <li>An active internet connection is required.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  © Koppula Rishi ·
+  <a onclick="openInfo('about')">About</a> ·
+  <a onclick="openInfo('terms')">Terms</a> ·
+  <a onclick="openInfo('privacy')">Privacy</a> ·
+  <a onclick="openInfo('support')">Support</a> ·
+  <a onclick="openInfo('login')">Login</a>
+</div>
+
+</div>
+
+<div class="info-modal" id="infoModal">
+  <div class="info-box">
+    <h3 id="infoTitle"></h3>
+    <p id="infoContent"></p>
+    <button onclick="closeInfo()">Close</button>
+  </div>
 </div>
 
 <script>
-document.getElementById("dateForm").onsubmit=e=>{
+// DATE SEARCH
+dateForm.onsubmit=e=>{
 e.preventDefault();
-
-const d=document.getElementById("selectDate").value;
-const results=document.getElementById("results");
-const highlights=document.getElementById("highlights");
-const status=document.getElementById("statusMsg");
-const error=document.getElementById("errorMsg");
-
-results.innerHTML="";
-highlights.innerHTML="";
-status.textContent="";
-error.textContent="";
-
-if(!d){
-  error.textContent="Please select a date.";
-  return;
-}
-
+errorMsg.textContent="";
+const d=selectDate.value;
+if(!d){errorMsg.textContent="Please select a date.";return;}
 const dt=new Date(d);
 const readable=dt.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
 const link=q=>`https://www.google.com/search?q=${encodeURIComponent(q+" "+readable)}`;
-
-results.innerHTML=`
-<div class="day-card">
-  <b>${readable}</b>
-  <div class="links">
-    <a href="${link("what happened on")}" target="_blank">Full Overview</a>
-  </div>
-</div>
-`;
-
-highlights.innerHTML=`
-<div class="highlights">
-  <h3>Most Important Activities</h3>
-  <ul>
-    <li><a href="${link("major political events")}" target="_blank">Political & Government Events</a></li>
-    <li><a href="${link("supreme court major decisions")}" target="_blank">Legal / Supreme Court Decisions</a></li>
-    <li><a href="${link("international relations diplomacy")}" target="_blank">International & Diplomatic Events</a></li>
-    <li><a href="${link("economy finance news")}" target="_blank">Economy & Financial Updates</a></li>
-    <li><a href="${link("science technology launches")}" target="_blank">Science & Technology</a></li>
-    <li><a href="${link("important national events india")}" target="_blank">National Importance (India)</a></li>
-  </ul>
-</div>
-`;
-
-status.textContent=`Highlights ready for ${readable}`;
+results.innerHTML=`<div class="day-card"><b>${readable}</b>
+<div class="links"><a href="${link("what happened on")}" target="_blank">Full Overview</a></div></div>`;
+highlights.innerHTML=`<div class="highlights"><h3>Most Important Activities</h3><ul>
+<li><a href="${link("major political events")}" target="_blank">Political & Government Events</a></li>
+<li><a href="${link("supreme court major decisions")}" target="_blank">Legal / Supreme Court Decisions</a></li>
+<li><a href="${link("international relations diplomacy")}" target="_blank">International & Diplomatic Events</a></li>
+<li><a href="${link("economy finance news")}" target="_blank">Economy & Financial Updates</a></li>
+<li><a href="${link("science technology launches")}" target="_blank">Science & Technology</a></li>
+<li><a href="${link("important national events india")}" target="_blank">National Importance (India)</a></li>
+</ul></div>`;
+statusMsg.textContent=`Highlights ready for ${readable}`;
 };
+
+// Q-GAME
+const currentYear=new Date().getFullYear();
+for(let y=currentYear;y>=1980;y--){
+  yearSelect.innerHTML+=`<option value="${y}">${y}</option>`;
+}
+qGameForm.onsubmit=e=>{
+e.preventDefault();
+if(!yearSelect.value)return alert("Select a year");
+window.open(`https://www.google.com/search?q=${encodeURIComponent("50 random GK questions from "+yearSelect.value+" for competitive exams")}`,"_blank");
+};
+
+// FOOTER MODALS
+function openInfo(type){
+const data={
+about:`This platform is designed to help students and competitive exam aspirants
+explore date-wise current affairs efficiently using publicly available sources.`,
+terms:`This website is intended strictly for educational purposes. External content
+is accessed via public search engines.`,
+privacy:`No personal data is collected, stored, or tracked.`,
+support:`For any query or suggestions:<br><br>
+<a href="mailto:koppularishi.24@gmail.com">koppularishi.24@gmail.com</a><br>
+<a href="tel:8480762145">8480762145</a>`,
+login:`Why do you need to login when you just select and read 🤷🏻‍♂️?!?, Are you bored?`
+};
+infoTitle.textContent=type.toUpperCase();
+infoContent.innerHTML=data[type];
+infoModal.style.display="flex";
+}
+function closeInfo(){infoModal.style.display="none";}
 </script>
+
 </body>
   </html>
